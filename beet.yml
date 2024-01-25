@@ -1,0 +1,27 @@
+name: MobArmory
+author: PuckiSilver
+version: v1.0.0
+output: build
+require:
+  - bolt
+
+data_pack:
+  load:
+    - libs/dp/*
+    - src
+  name: MobArmory
+  description: Adds mob themed equipment
+
+resource_pack:
+  load:
+    # - libs/rp/*
+    - src
+  name: MobArmory-RP
+  description: Adds mob themed equipment
+
+pipeline:
+  - mecha
+  - plugins.remove_empty_functions
+  - plugins.credit
+meta:
+  credit: [psmoba]
