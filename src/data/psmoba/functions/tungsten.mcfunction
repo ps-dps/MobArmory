@@ -24,7 +24,9 @@ function ~/legs:
 
 function ~/feet:
     if score @s psmoba.feet matches 1 effect clear @s fire_resistance
+    if score @s psmoba.feet matches 2 effect clear @s slow_falling
 
     store result score @s psmoba.feet data get storage tungsten:player Item.tag.psmoba.nid
 
     if score @s psmoba.feet matches 1 effect give @s fire_resistance infinite 0 true
+    if score @s psmoba.feet matches 2 effect give @s slow_falling infinite 0 true
