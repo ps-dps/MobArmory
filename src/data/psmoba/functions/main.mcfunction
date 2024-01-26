@@ -29,3 +29,4 @@ function ./tick:
     as @a[scores={psmoba.clear.levitation=0}] function ./clear/levitation
 
     as @a[scores={psmoba.chest=2}] at @s function ./phantom/chest/tick
+    as @a[scores={psmoba.legs=2}] at @s function ./phantom/legs/tick
