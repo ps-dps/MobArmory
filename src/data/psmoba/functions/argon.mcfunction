@@ -9,3 +9,4 @@ function ~/player_hurt_entity:
     on attacker scoreboard players operation .feet psmoba = @s psmoba.feet
 
     if score .legs psmoba matches 1 function ./wither_skeleton/legs/player_hurt_entity
+    if score .head psmoba matches 1 function ./wither_skeleton/head/player_hurt_entity

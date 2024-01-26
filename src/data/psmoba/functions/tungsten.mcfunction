@@ -23,4 +23,8 @@ function ~/legs:
     store result score @s psmoba.legs data get storage tungsten:player Item.tag.psmoba.nid
 
 function ~/feet:
+    if score @s psmoba.feet matches 1 effect clear @s fire_resistance
+
     store result score @s psmoba.feet data get storage tungsten:player Item.tag.psmoba.nid
+
+    if score @s psmoba.feet matches 1 effect give @s fire_resistance infinite 0 true

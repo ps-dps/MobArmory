@@ -2,9 +2,13 @@
 function ~/bow:
     scoreboard players reset @s psmoba.shot_bow
 
-    if score @s psmoba.chest matches 1 function ./wither_skeleton/chest/arrow/shot
+    tag @s add psmoba.shooter
+    if score @s psmoba.chest matches 1 anchored eyes positioned ^ ^ ^ as @e[type=arrow,distance=..1,tag=!psmoba.wither_skeleton.chest,nbt={life:0s}] function ./wither_skeleton/chest/shoot_arrow
+    tag @s remove psmoba.shooter
 
 function ~/crossbow:
     scoreboard players reset @s psmoba.shot_crossbow
 
-    if score @s psmoba.chest matches 1 function ./wither_skeleton/chest/arrow/shot
+    tag @s add psmoba.shooter
+    if score @s psmoba.chest matches 1 anchored eyes positioned ^ ^ ^ as @e[type=arrow,distance=..1,tag=!psmoba.wither_skeleton.chest,nbt={life:0s}] function ./wither_skeleton/chest/shoot_arrow
+    tag @s remove psmoba.shooter
