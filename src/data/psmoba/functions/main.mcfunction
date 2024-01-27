@@ -10,8 +10,8 @@ function ./load:
 
     scoreboard objectives add psmoba.clear.levitation dummy
 
-    scoreboard objectives add psmoba.mainhand dummy
-    scoreboard objectives add psmoba.offhand dummy
+    # scoreboard objectives add psmoba.mainhand dummy
+    # scoreboard objectives add psmoba.offhand dummy
     scoreboard objectives add psmoba.head dummy
     scoreboard objectives add psmoba.chest dummy
     scoreboard objectives add psmoba.legs dummy

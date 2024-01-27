@@ -1,23 +1,11 @@
 
-loot_table ~/ {
-    "pools": [
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "minecraft:leather_leggings",
-                    "functions": [
-                        {
-                            "function": "minecraft:set_nbt",
-                            "tag": "{psmoba:{id:\"phantom_legs\",nid:2},display:{color:64235},AttributeModifiers:[{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.legs\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,14],Slot:\"legs\"}]}"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+from ./../loot_table import item
+
+loot_table ~/ item(
+    'phantom', 'legs', 2,
+    { 'armor': 5 },
+    color=64235, lore=2
+)
 
 predicate ~/is_speed {
     "condition": "minecraft:any_of",

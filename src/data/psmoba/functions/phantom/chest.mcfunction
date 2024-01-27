@@ -1,23 +1,11 @@
 
-loot_table ~/ {
-    "pools": [
-        {
-            "rolls": 1,
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "minecraft:elytra",
-                    "functions": [
-                        {
-                            "function": "minecraft:set_nbt",
-                            "tag": "{psmoba:{id:\"phantom_chest\",nid:2},AttributeModifiers:[{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.chest\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,13],Slot:\"chest\"}]}"
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
+from ./../loot_table import item
+
+loot_table ~/ item(
+    'phantom', 'chest', 2,
+    { 'armor': 5 },
+    color=64235, lore=2, special='elytra'
+)
 
 item_modifier ~/destroy {
     "function": "minecraft:set_damage",

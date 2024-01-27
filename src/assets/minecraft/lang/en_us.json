@@ -1,0 +1,46 @@
+{
+    "psmoba.phantom.head.name":  "Phantom Eyes",
+    "psmoba.phantom.head.lore0": "Night Vision:",
+    "psmoba.phantom.head.lore1": "You can see in the dark",
+    
+    "psmoba.phantom.chest.name":  "Phantom Wings",
+    "psmoba.phantom.chest.lore0": "Flap:",
+    "psmoba.phantom.chest.lore1": "Jump while in the air to soar",
+    "psmoba.phantom.chest.lore2": "into the sky",
+    
+    "psmoba.phantom.legs.name":  "Phantom Leggings",
+    "psmoba.phantom.legs.lore0": "Night Stride:",
+    "psmoba.phantom.legs.lore1": "Gain a speed boost at night",
+    "psmoba.phantom.legs.lore2": "and in the dark",
+    
+    "psmoba.phantom.feet.name":  "Phantom Boots",
+    "psmoba.phantom.feet.lore0": "Glide:",
+    "psmoba.phantom.feet.lore1": "You fall slowly and take",
+    "psmoba.phantom.feet.lore2": "no fall damage",
+
+
+    "psmoba.wither_skeleton.head.name":  "Withered Bone Helmet",
+    "psmoba.wither_skeleton.head.lore0": "Rejuvenation:",
+    "psmoba.wither_skeleton.head.lore1": "Heal when hitting a withering",
+    "psmoba.wither_skeleton.head.lore2": "or burning enemy",
+    
+    "psmoba.wither_skeleton.chest.name":  "Withered Ripcage",
+    "psmoba.wither_skeleton.chest.lore0": "Cinder:",
+    "psmoba.wither_skeleton.chest.lore1": "Set any arrows you fire aflame",
+    
+    "psmoba.wither_skeleton.legs.name":  "Withered Bone Leggings",
+    "psmoba.wither_skeleton.legs.lore0": "Withering Touch:",
+    "psmoba.wither_skeleton.legs.lore1": "Apply withering to any enemy",
+    "psmoba.wither_skeleton.legs.lore2": "you damage",
+    
+    "psmoba.wither_skeleton.feet.name":  "Withered Bone Boots",
+    "psmoba.wither_skeleton.feet.lore0": "Unmelting Bones:",
+    "psmoba.wither_skeleton.feet.lore1": "You are immune to fire damage",
+
+
+    "psmoba.stat.pos": "[+%s%s]",
+    "psmoba.stat.neg": "[-%s%s]",
+
+    "psmoba.stat.armor.icon": "a",
+    "psmoba.stat.armor_toughness.icon": "t"
+}
