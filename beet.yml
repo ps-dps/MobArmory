@@ -21,6 +21,7 @@ resource_pack:
 
 pipeline:
   - mecha
+  - plugins.fancy_armor
   - plugins.remove_empty_functions
   - plugins.credit
 meta:
