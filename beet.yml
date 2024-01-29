@@ -4,6 +4,7 @@ version: v1.0.0
 output: build
 require:
   - bolt
+  - plugins.fancy_armor.setup
 
 data_pack:
   load:
@@ -14,14 +15,14 @@ data_pack:
 
 resource_pack:
   load:
-    # - libs/rp/*
+    - libs/rp/*
     - src
   name: MobArmory-RP
   description: Adds mob themed equipment
 
 pipeline:
   - mecha
-  - plugins.fancy_armor
+  - plugins.fancy_armor.fancify
   - plugins.remove_empty_functions
   - plugins.credit
 meta:
