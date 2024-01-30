@@ -64,8 +64,7 @@ def stitch_texture(images: list[Image.Image]) -> Image.Image:
 def fancify(ctx: Context):
     if not ArmorTexture in ctx.assets: return
 
-    ctx.assets[CitPropertiesFile]['minecraft:base_leather_armor.properties'] = CitPropertiesFile(
-        '\n'.join([
+    ctx.assets[CitPropertiesFile]['minecraft:base_leather_armor.properties'] = CitPropertiesFile('\n'.join([
         "# Generated using https://github.com/PuckiSilver/FancyPantsLite-to-CIT by PuckiSilver",
         "type=armor",
         "items=minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_leggings minecraft:leather_boots",
@@ -73,7 +72,8 @@ def fancify(ctx: Context):
         "texture.leather_layer_2=base_leather_armor_2",
         "texture.leather_layer_1_overlay=base_leather_armor_1_overlay",
         "texture.leather_layer_2_overlay=base_leather_armor_2_overlay",
-        "weight=-1",""]))
+        "weight=-1",
+    ""]))
 
     trash = []
     leather_armor_1, leather_armor_2, overlay_1, overlay_2 = get_leather_armor_textures(ctx)
@@ -96,7 +96,7 @@ def fancify(ctx: Context):
         image: Image.Image = file.ensure_deserialized()
 
         ctx.assets[CitArmorTexture][f'minecraft:armor_{color}_{filename[-1]}'] = CitArmorTexture(image.copy())
-        
+
         items = "minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_boots" if filename.endswith('1') else "minecraft:leather_leggings"
         if f'minecraft:armor_{color}' in ctx.assets[CitPropertiesFile]:
             properties_file = ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}']
@@ -115,7 +115,6 @@ def fancify(ctx: Context):
                 f'texture.leather_layer_1_overlay=armor_{color}_{filename[-1]}',
                 f'items={items}',
             ]))
-
 
         image.putpixel((0, 0), color_int_to_tuple(color))
         if filename.endswith('1'):
