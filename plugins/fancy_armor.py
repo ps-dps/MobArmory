@@ -82,6 +82,7 @@ def fancify(ctx: Context):
     ctx.assets[CitArmorTexture]['minecraft:base_leather_armor_2'] = CitArmorTexture(leather_armor_2.copy())
     ctx.assets[CitArmorTexture]['minecraft:base_leather_armor_1_overlay'] = CitArmorTexture(overlay_1)
     ctx.assets[CitArmorTexture]['minecraft:base_leather_armor_2_overlay'] = CitArmorTexture(overlay_2)
+    ctx.assets[CitArmorTexture]['minecraft:empty'] = CitArmorTexture(Image.new('RGBA', (64, 32)))
 
     leather_armor_1.putpixel((0, 1), (255, 255, 255))
     leather_armor_2.putpixel((0, 1), (255, 255, 255))
@@ -103,7 +104,7 @@ def fancify(ctx: Context):
             ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}'] = CitPropertiesFile('\n'.join([
                 properties_file.get_content() + ' ' + items,
                 f'texture.leather_layer_{filename[-1]}=empty',
-                f'texture.leather_layer_1_overlay=armor_{color}_{filename[-1]}',
+                f'texture.leather_layer_{filename[-1]}_overlay=armor_{color}_{filename[-1]}',
             ""]))
         else:
             ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}'] = CitPropertiesFile('\n'.join([
@@ -112,7 +113,7 @@ def fancify(ctx: Context):
                 "weight=1",
                 f'nbt.display.color={color}',
                 f'texture.leather_layer_{filename[-1]}=empty',
-                f'texture.leather_layer_1_overlay=armor_{color}_{filename[-1]}',
+                f'texture.leather_layer_{filename[-1]}_overlay=armor_{color}_{filename[-1]}',
                 f'items={items}',
             ]))
 
