@@ -96,17 +96,26 @@ def fancify(ctx: Context):
         image: Image.Image = file.ensure_deserialized()
 
         ctx.assets[CitArmorTexture][f'minecraft:armor_{color}_{filename[-1]}'] = CitArmorTexture(image.copy())
-        if filename.endswith('1'): # scuffed way to only do it once
+        
+        items = "minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_boots" if filename.endswith('1') else "minecraft:leather_leggings"
+        if f'minecraft:armor_{color}' in ctx.assets[CitPropertiesFile]:
+            properties_file = ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}']
+            ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}'] = CitPropertiesFile('\n'.join([
+                properties_file.get_content() + ' ' + items,
+                f'texture.leather_layer_{filename[-1]}=empty',
+                f'texture.leather_layer_1_overlay=armor_{color}_{filename[-1]}',
+            ""]))
+        else:
             ctx.assets[CitPropertiesFile][f'minecraft:armor_{color}'] = CitPropertiesFile('\n'.join([
                 "# Generated using https://github.com/PuckiSilver/FancyPantsLite-to-CIT by PuckiSilver",
                 "type=armor",
                 "weight=1",
-                "texture.leather_layer_1=empty",
-                f'texture.leather_layer_1_overlay=armor_{color}_1',
-                "texture.leather_layer_2=empty",
-                f'texture.leather_layer_2_overlay=armor_{color}_2',
-                "items=minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_leggings minecraft:leather_boots",
-                f'nbt.display.color={color}',""]))
+                f'nbt.display.color={color}',
+                f'texture.leather_layer_{filename[-1]}=empty',
+                f'texture.leather_layer_1_overlay=armor_{color}_{filename[-1]}',
+                f'items={items}',
+            ]))
+
 
         image.putpixel((0, 0), color_int_to_tuple(color))
         if filename.endswith('1'):
