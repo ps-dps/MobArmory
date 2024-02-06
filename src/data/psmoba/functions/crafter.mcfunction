@@ -11,7 +11,7 @@ function ~/place:
         },
     }
     setblock ~ ~ ~ barrel{
-        CustomName: '"Mob Armory"',
+        CustomName: '["",{"text": "-b+", "font": "psmoba:gui", "color": "white"},{"translate": "psmoba.crafter.title"}]',
     }
     align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter,limit=1] function ~/../page/inventory/setup
 
@@ -99,7 +99,6 @@ function ~/page:
             data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.items[]
 
 
-
         function ~/calculate_item_amounts:
             data remove storage psmoba:temp crafter.recipes.amounts
             data modify storage psmoba:temp crafter.recipes.loop set from storage psmoba:temp crafter.items
@@ -122,17 +121,9 @@ function ~/page:
                 if data storage psmoba:temp crafter.recipes.loop[0] function ~/
 
 
-
-
 function ~/tick:
-    execute as @a[distance=..8] store result score @s psmoba.crafter clear @s structure_void{psmoba:{is_inventory:1b}}
-    unless entity @a[distance=..8, scores={psmoba.crafter=1..}] return 0
-
     if score @s psmoba.crafter matches 1 return run function ~/../page/inventory/click
     if score @s psmoba.crafter matches 2 return run function ~/../page/crafting/click
-
-    # say @a[distance=..8, scores={psmoba.crafter=1..}] I STOLE
-    # scoreboard players reset @a[distance=..8, scores={psmoba.crafter=1..}] psmoba.crafter
 
 
 function ~/destroy_all:

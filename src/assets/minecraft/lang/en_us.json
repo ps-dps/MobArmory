@@ -42,5 +42,11 @@
     "psmoba.stat.neg": "[-%s%s]",
 
     "psmoba.stat.armor.icon": "a",
-    "psmoba.stat.armor_toughness.icon": "t"
+    "psmoba.stat.armor_toughness.icon": "t",
+
+    "psmoba.crafter.title": "Mob Armory",
+    "psmoba.crafter.inventory": "Inventory",
+    "psmoba.crafter.crafting": "Crafting",
+
+    "":""
 }

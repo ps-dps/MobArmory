@@ -23,10 +23,12 @@ function ./load:
         {Slot:0b, Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'{"translate":"psmoba.crafter.inventory","color":"white","italic":false}'},
+            CustomModelData: 2557801,
         }},
         {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
+            CustomModelData: 2557812,
         }},
         {Slot:18b,Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
@@ -38,10 +40,12 @@ function ./load:
         {Slot:0b, Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'{"translate":"psmoba.crafter.inventory","color":"white","italic":false}'},
+            CustomModelData: 2557802,
         }},
         {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
+            CustomModelData: 2557811,
         }},
         {Slot:18b,Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
@@ -81,7 +85,8 @@ function ./tick:
     as @a[scores={psmoba.chest=2}] at @s function ./phantom/chest/tick
     as @a[scores={psmoba.legs=2}] at @s function ./phantom/legs/tick
 
-    as @e[type=item_display,tag=psmoba.crafter] at @s function ./crafter/tick
+    as @a store result score @s psmoba.crafter clear @s structure_void{psmoba:{is_inventory:1b}}
+    as @a[scores={psmoba.crafter=1..}] at @s as @e[type=item_display,distance=..8,tag=psmoba.crafter] at @s function ./crafter/tick
 
 
 function ./summon_item:

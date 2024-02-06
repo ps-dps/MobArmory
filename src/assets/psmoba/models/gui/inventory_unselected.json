@@ -1,0 +1,6 @@
+{
+    "parent": "psmoba:gui/inventory_selected",
+    "textures": {
+        "1": "psmoba:item/gui/inventory_unselected"
+    }
+}
