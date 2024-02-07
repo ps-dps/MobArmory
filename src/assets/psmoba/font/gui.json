@@ -4,7 +4,7 @@
             "type": "bitmap",
             "file": "psmoba:font/gui/background.png",
             "height": 256,
-            "ascent": 13,
+            "ascent": 58,
             "chars": [
                 "b"
             ]
@@ -12,8 +12,8 @@
         {
             "type": "space",
             "advances": {
-                "-": -8,
-                "+": -170
+                "-": -48,
+                "+": -209
             }
         }
     ]

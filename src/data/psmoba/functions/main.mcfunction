@@ -18,6 +18,7 @@ function ./load:
     scoreboard objectives add psmoba.feet dummy
 
     scoreboard objectives add psmoba.crafter dummy
+    scoreboard objectives add psmoba.crafter.progress dummy
 
     data modify storage psmoba:main crafter.pages.inventory set value [
         {Slot:0b, Count:1b,id:"minecraft:structure_void",tag:{
@@ -25,11 +26,11 @@ function ./load:
             display:{Name:'{"translate":"psmoba.crafter.inventory","color":"white","italic":false}'},
             CustomModelData: 2557801,
         }},
-        {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
-            psmoba:{is_inventory:1b},
-            display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
-            CustomModelData: 2557812,
-        }},
+#         {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
+#             psmoba:{is_inventory:1b},
+#             display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
+#             CustomModelData: 2557812,
+#         }},
         {Slot:18b,Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'""'},
@@ -42,11 +43,11 @@ function ./load:
             display:{Name:'{"translate":"psmoba.crafter.inventory","color":"white","italic":false}'},
             CustomModelData: 2557802,
         }},
-        {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
-            psmoba:{is_inventory:1b},
-            display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
-            CustomModelData: 2557811,
-        }},
+#         {Slot:9b, Count:1b,id:"minecraft:structure_void",tag:{
+#             psmoba:{is_inventory:1b},
+#             display:{Name:'{"translate":"psmoba.crafter.crafting","color":"white","italic":false}'},
+#             CustomModelData: 2557811,
+#         }},
         {Slot:18b,Count:1b,id:"minecraft:structure_void",tag:{
             psmoba:{is_inventory:1b},
             display:{Name:'""'},
@@ -58,14 +59,14 @@ function ./load:
             "success": { id: "minecraft:redstone_block", Count: 1b, tag: {display:{Name:'"YES 64 Bones"'}} },
             "failure": { id: "minecraft:bedrock", Count: 1b, tag: {display:{Name:'"64 Bones"'}} },
             "cost": [
-                { id: "minecraft:bone", Count: 64b},
+                { id: "minecraft:bone", Count: 64},
             ],
         },
         {
             "success": { id: "minecraft:redstone_block", Count: 1b, tag: {display:{Name:'"YES 120 Flesh"'}} },
             "failure": { id: "minecraft:bedrock", Count: 1b, tag: {display:{Name:'"120 Flesh"'}} },
             "cost": [
-                { id: "minecraft:rotten_flesh", Count: 120b},
+                { id: "minecraft:rotten_flesh", Count: 120},
             ],
         },
     ]

@@ -1,6 +1,6 @@
 {
     "parent": "psmoba:gui/crafting_selected",
     "textures": {
-        "1": "psmoba:item/gui/crafting_unselected"
+        "2": "psmoba:item/gui/bar16x1/12"
     }
 }

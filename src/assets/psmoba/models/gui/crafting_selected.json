@@ -1,6 +1,30 @@
 {
-    "parent": "psmoba:gui/inventory_selected",
-    "textures": {
-        "1": "psmoba:item/gui/crafting_selected"
-    }
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"1": "psmoba:item/gui/crafting_selected",
+		"2": "psmoba:item/gui/bar16x1/none"
+	},
+	"elements": [
+		{
+			"from": [-1, 14, 0],
+			"to": [17, 32, 0],
+			"faces": {
+				"south": {"uv": [0, 0, 16, 16], "texture": "#1"}
+			}
+		},
+		{
+			"from": [0, -6, 0],
+			"to": [16, -5, 0],
+			"faces": {
+				"south": {"uv": [0, 0, 16, 16], "texture": "#2"}
+			}
+		}
+	],
+	"gui_light": "front",
+	"display": {
+		"gui": {
+			"translation": [0, -15, 0]
+		}
+	}
 }

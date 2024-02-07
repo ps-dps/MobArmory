@@ -13,6 +13,7 @@ function ~/place:
     setblock ~ ~ ~ barrel{
         CustomName: '["",{"text": "-b+", "font": "psmoba:gui", "color": "white"},{"translate": "psmoba.crafter.title"}]',
     }
+    align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter,limit=1] scoreboard players set @s psmoba.crafter.progress 0
     align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter,limit=1] function ~/../page/inventory/setup
 
 
@@ -29,6 +30,7 @@ function ~/page:
         function ~/setup:
             scoreboard players set @s psmoba.crafter 1
             data modify block ~ ~-1 ~ Items set from storage psmoba:main crafter.pages.inventory
+            loot replace block ~ ~-1 ~ container.9 loot psmoba:crafting_bar
             function ~/../load
         function ~/click:
             data modify storage psmoba:temp crafter.items set from block ~ ~-1 ~ Items
@@ -51,6 +53,7 @@ function ~/page:
         function ~/setup:
             scoreboard players set @s psmoba.crafter 2
             data modify block ~ ~-1 ~ Items set from storage psmoba:main crafter.pages.crafting
+            loot replace block ~ ~-1 ~ container.9 loot psmoba:crafting_bar
             function ~/../recipes
         function ~/click:
             data modify storage psmoba:temp crafter.items set from block ~ ~-1 ~ Items
@@ -58,7 +61,8 @@ function ~/page:
                 replace_item(0)
                 function ~/../../inventory/setup
             unless data storage psmoba:temp {crafter:{items:[{Slot:9b,tag:{psmoba:{is_inventory:1b}}}]}} return run function ~/../slot9:
-                replace_item(9, 'crafting')
+                replace_item(9)
+                loot replace block ~ ~-1 ~ container.9 loot psmoba:crafting_bar
             unless data storage psmoba:temp {crafter:{items:[{Slot:18b,tag:{psmoba:{is_inventory:1b}}}]}} return run function ~/../slot18:
                 replace_item(18, 'crafting')
         function ~/recipes:
@@ -97,28 +101,6 @@ function ~/page:
                 data remove storage psmoba:temp crafter.recipes.recipes[-1]
                 if data storage psmoba:temp crafter.recipes.recipes[0] function ~/
             data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.items[]
-
-
-        function ~/calculate_item_amounts:
-            data remove storage psmoba:temp crafter.recipes.amounts
-            data modify storage psmoba:temp crafter.recipes.loop set from storage psmoba:temp crafter.items
-            data remove storage psmoba:temp crafter.recipes.loop[{tag:{psmoba:{is_inventory:1b}}}]
-            execute function ~/loop:
-                data modify storage psmoba:temp item.item set from storage psmoba:temp crafter.recipes.loop[-1]
-                store result score #count psmoba.crafter data get storage psmoba:temp item.item.Count
-                data remove storage psmoba:temp item.item.Count
-                data remove storage psmoba:temp item.item.Slot
-                store result score #has_added psmoba.crafter function ~/../add_to_count with storage psmoba:temp item:
-                    $execute unless data storage psmoba:temp crafter.recipes.amounts[$(item)] run return 0
-                    $execute store result score #icount psmoba.crafter run data get storage psmoba:temp crafter.recipes.amounts[$(item)].Count
-                    scoreboard players operation #icount psmoba.crafter += #count psmoba.crafter
-                    $execute store result storage psmoba:temp crafter.recipes.amounts[$(item)].Count int 1 run scoreboard players get #icount psmoba.crafter
-                    return 1
-                if score #has_added psmoba.crafter matches 0 store result storage psmoba:temp item.item.Count int 1 scoreboard players get #count psmoba.crafter
-                if score #has_added psmoba.crafter matches 0 data modify storage psmoba:temp crafter.recipes.amounts append from storage psmoba:temp item.item
-                
-                data remove storage psmoba:temp crafter.recipes.loop[-1]
-                if data storage psmoba:temp crafter.recipes.loop[0] function ~/
 
 
 function ~/tick:
