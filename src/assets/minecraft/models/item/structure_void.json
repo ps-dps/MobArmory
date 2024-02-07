@@ -4,6 +4,8 @@
         "layer0": "minecraft:item/structure_void"
     },
     "overrides": [
+        {"predicate": { "custom_model_data": 2557800 }, "model": "psmoba:empty"},
+
         {"predicate": { "custom_model_data": 2557801 }, "model": "psmoba:gui/inventory_selected"},
         {"predicate": { "custom_model_data": 2557802 }, "model": "psmoba:gui/inventory_unselected"},
 
@@ -43,6 +45,11 @@
         {"predicate": { "custom_model_data": 2557843 }, "model": "psmoba:gui/crafting_unselected_bar13"},
         {"predicate": { "custom_model_data": 2557844 }, "model": "psmoba:gui/crafting_unselected_bar14"},
         {"predicate": { "custom_model_data": 2557845 }, "model": "psmoba:gui/crafting_unselected_bar15"},
-        {"predicate": { "custom_model_data": 2557846 }, "model": "psmoba:gui/crafting_unselected_bar16"}
+        {"predicate": { "custom_model_data": 2557846 }, "model": "psmoba:gui/crafting_unselected_bar16"},
+
+        {"predicate": { "custom_model_data": 2557900 }, "model": "minecraft:item/acacia_boat"},
+        {"predicate": { "custom_model_data": 2557901 }, "model": "minecraft:item/acacia_fence"},
+        {"predicate": { "custom_model_data": 2557902 }, "model": "minecraft:item/bedrock"},
+        {"predicate": { "custom_model_data": 2557903 }, "model": "minecraft:item/red_wool"}
     ]
 }

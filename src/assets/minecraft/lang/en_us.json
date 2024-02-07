@@ -47,6 +47,8 @@
     "psmoba.crafter.title": "Mob Armory",
     "psmoba.crafter.inventory": "Inventory",
     "psmoba.crafter.crafting": "Crafting",
+    "psmoba.crafter.craft.success": "Click to craft %s",
+    "psmoba.crafter.craft.failure": "Unable to craft %s",
 
     "":""
 }
