@@ -100,4 +100,4 @@ function ./tick:
 
 
 function ./summon_item:
-    $summon item ~ ~ ~ {Item:$(item),PickupDelay:0,Motion:[0d,.3d,0d]}
+    $summon item ~ ~ ~ {Item:$(item),Motion:[0d,.3d,0d]}

@@ -1,6 +1,6 @@
 from random import randint
 
-def item(mob: str, slot: str, nid: int, stats: dict[str, int], color: int, lore: int, special: str = None):
+def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: int, lore: int, special: str = None):
     if slot == 'head':
         item = 'minecraft:leather_helmet'
     elif slot == 'chest':
@@ -36,7 +36,7 @@ def item(mob: str, slot: str, nid: int, stats: dict[str, int], color: int, lore:
 
     if special != 'elytra':
         tag += ",Unbreakable:1b"
-    tag += ",HideFlags:66}"
+    tag += ",HideFlags:66,CustomModelData:" + str(cmd) + "}"
 
     lore_arr = []
     lore_arr.append({"translate": f'psmoba.{mob}.{slot}.lore0', "color": "#ffcc00", "underlined": true, "italic": false})

@@ -2,7 +2,7 @@
 from ./../loot_table import item
 
 loot_table ~/ item(
-    'phantom', 'legs', 2,
+    'phantom', 'legs', 2, 2557802,
     { 'armor': 5 },
     color=64235, lore=2
 )
