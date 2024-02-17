@@ -14,7 +14,6 @@ loot_table ~/ { "pools": [{ "rolls": 1, "entries": [{ "type": "minecraft:item",
 }]}]}
 
 
-
 function ~/place:
     align xyz run summon item_display ~.5 ~1 ~.5 {
         item:{id:"minecraft:stone",Count:1b},
@@ -122,6 +121,25 @@ function ~/page:
 function ~/tick:
     if score @s psmoba.crafter matches 1 return run function ~/../page/inventory/click
     if score @s psmoba.crafter matches 2 return run function ~/../page/crafting/click
+
+
+function ~/break:
+    as @e[type=item,distance=..4,nbt={Item:{tag:{psmoba:{is_inventory:1b}}}}] kill @s
+
+    as @e[type=item,distance=..4,nbt={Item:{id:"minecraft:barrel"}}] function ~/../break2 with entity @s Item.tag.display:
+        $data modify storage psmoba:temp crafter.barrel set value $(Name)
+        if data storage psmoba:temp {crafter:{barrel:{extra:[{font:"psmoba:gui"}]}}} kill @s
+
+    unless score @s psmoba.crafter matches 1 data modify storage psmoba:temp crafter.drop_items set from entity @s item.tag.psmoba.items
+    unless score @s psmoba.crafter matches 1 if data storage psmoba:temp crafter.drop_items[0] function ~/../drop_inventory:
+        data modify storage psmoba:temp item.item set from storage psmoba:temp crafter.drop_items[-1]
+        function ./summon_item with storage psmoba:temp item
+        data remove storage psmoba:temp crafter.drop_items[-1]
+        if data storage psmoba:temp crafter.drop_items[0] function ~/
+
+    loot spawn ~ ~ ~ loot ~/../
+
+    kill @s
 
 
 function ~/destroy_all:
