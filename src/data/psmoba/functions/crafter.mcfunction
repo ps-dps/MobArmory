@@ -1,4 +1,20 @@
 
+loot_table ~/ { "pools": [{ "rolls": 1, "entries": [{ "type": "minecraft:item",
+    "name": "minecraft:furnace",
+    "functions": [
+        {
+            "function": "minecraft:set_nbt",
+            "tag": "{CustomModelData:2557800,BlockEntityTag:{Items:[{id:\"minecraft:stone\",Count:1b,Slot:0b,tag:{smithed:{block:{id:\"psmoba:crafter\"}}}}]}}"
+        },
+        {
+            "function": "minecraft:set_name",
+            "name": { "translate": "psmoba.crafter.title", "color": "white", "italic": false }
+        }
+    ]
+}]}]}
+
+
+
 function ~/place:
     align xyz run summon item_display ~.5 ~1 ~.5 {
         item:{id:"minecraft:stone",Count:1b},
