@@ -1,0 +1,11 @@
+{
+    "parent": "minecraft:block/furnace",
+    "overrides": [
+        {
+            "model": "psmoba:crafter",
+            "predicate": {
+                "custom_model_data": 2557800
+            }
+        }
+    ]
+}

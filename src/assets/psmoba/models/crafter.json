@@ -1,0 +1,11 @@
+{
+    "parent": "minecraft:block/cube",
+    "textures": {
+        "down":  "psmoba:item/crafter/down",
+        "east":  "psmoba:item/crafter/east",
+        "north": "psmoba:item/crafter/north",
+        "south": "psmoba:item/crafter/south",
+        "up":    "psmoba:item/crafter/up",
+        "west":  "psmoba:item/crafter/west"
+    }
+}

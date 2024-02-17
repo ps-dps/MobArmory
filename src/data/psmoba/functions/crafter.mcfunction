@@ -16,20 +16,22 @@ loot_table ~/ { "pools": [{ "rolls": 1, "entries": [{ "type": "minecraft:item",
 
 function ~/place:
     align xyz run summon item_display ~.5 ~1 ~.5 {
-        item:{id:"minecraft:stone",Count:1b},
-        Tags:["psmoba.crafter"],
+        item:{id:"minecraft:furnace",Count:1b,tag:{CustomModelData:2557800}},
+        Tags:["psmoba.crafter","psmoba.crafter.place"],
         transformation:{
             right_rotation: [0f,0f,0f,1f],
             left_rotation: [0f,0f,0f,1f],
             translation: [0f,-.5f,0f],
-            scale: [1.001f,1.001f,1.001f],
+            scale: [1.004f,1.004f,1.004f],
         },
     }
     setblock ~ ~ ~ barrel{
         CustomName: '["",{"text": "-b+", "font": "psmoba:gui", "color": "white"},{"translate": "psmoba.crafter.title"}]',
     }
-    align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter,limit=1] scoreboard players set @s psmoba.crafter.progress 0
-    align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter,limit=1] function ~/../page/inventory/setup
+    align xyz positioned ~.5 ~1 ~.5 as @e[type=item_display,distance=...5,tag=psmoba.crafter.place,limit=1] function ~/../place2:
+        tag @s remove psmoba.crafter.place
+        scoreboard players set @s psmoba.crafter.progress 0
+        function ~/../page/inventory/setup
 
 
 def replace_item(slot:int, page:str = None):
