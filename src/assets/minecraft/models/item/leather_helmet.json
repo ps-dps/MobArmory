@@ -66,6 +66,12 @@
             "predicate": {
                 "custom_model_data": 2557801
             }
+        },
+        {
+            "model": "psmoba:armor/phantom_helmet",
+            "predicate": {
+                "custom_model_data": 2557802
+            }
         }
     ],
     "textures": {
