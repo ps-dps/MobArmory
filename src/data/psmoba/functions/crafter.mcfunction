@@ -1,3 +1,4 @@
+from nbtlib import Byte
 
 loot_table ~/ { "pools": [{ "rolls": 1, "entries": [{ "type": "minecraft:item",
     "name": "minecraft:furnace",
@@ -41,6 +42,29 @@ def replace_item(slot:int, page:str = None):
     if page:
         raw f'data modify block ~ ~-1 ~ Items append from storage psmoba:main crafter.pages.{page}[{{Slot:{slot}b}}]'
 
+def check_recipe(slot:int): #! MAKE IT SUPPORT 2ND ROWWW
+    unless data storage psmoba:temp {crafter:{items:[{Slot: Byte(slot) ,tag:{psmoba:{is_inventory:1b}}}]}} return run function ~/../slot{slot}:
+        replace_item(slot)
+        item replace block ~ ~-1 ~ f'container.{slot}' with minecraft:structure_void{CustomModelData:2557800,psmoba:{is_inventory:1b},display:{Name:'""'}}
+        unless data storage psmoba:main crafter.recipes[(-slot)] return 0 #!
+        data modify storage psmoba:temp crafter.recipes.recipes set value [{}]
+        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
+        store result score #success psmoba.crafter function ~/../check_recipe_cost
+        if score #success psmoba.crafter matches 0 return run function ~/../fail{slot}:
+            say FAILED
+            data modify storage psmoba:temp crafter.recipes.recipes[0].failure.Slot set value Byte(slot)
+            data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.recipes[0].failure
+        data modify storage psmoba:temp crafter.recipes.recipes[0].success.Slot set value Byte(slot)
+        data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.recipes[0].success
+        say SUCCESS
+
+        # remove ingredients
+        data modify storage psmoba:temp crafter.recipes.items set from entity @s item.tag.psmoba.items
+        data modify storage psmoba:temp crafter.recipes.recipes set value [{}]
+        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
+        # after this place the result into the items, summon_item if no space
+
+
 
 function ~/page:
     function ~/inventory:
@@ -82,6 +106,11 @@ function ~/page:
                 loot replace block ~ ~-1 ~ container.9 loot psmoba:crafting_bar
             unless data storage psmoba:temp {crafter:{items:[{Slot:18b,tag:{psmoba:{is_inventory:1b}}}]}} return run function ~/../slot18:
                 replace_item(18, 'crafting')
+
+            for i in range(1, 27):
+                if i not in [9, 18]:
+                    check_recipe(i)
+
         function ~/recipes:
             data remove storage psmoba:temp crafter.recipes.items
             data modify storage psmoba:temp crafter.recipes.recipes set from storage psmoba:main crafter.recipes
@@ -90,8 +119,8 @@ function ~/page:
                 store result score #success psmoba.crafter function ~/../check_recipe_cost:
                     data modify storage psmoba:temp item.item set from storage psmoba:temp crafter.recipes.recipes[-1].cost[-1]
                     data remove storage psmoba:temp crafter.recipes.recipes[-1].cost[-1]
-                    store result score #count psmoba.crafter data get storage psmoba:temp item.item.Count
-                    data remove storage psmoba:temp item.item.Count
+                    store result score #count psmoba.crafter data get storage psmoba:temp item.item.psmoba.count
+                    data remove storage psmoba:temp item.item.psmoba
                     data modify storage psmoba:temp crafter.recipes.match set value []
                     execute function ~/../copy_matching with storage psmoba:temp item:
                         $data modify storage psmoba:temp crafter.recipes.match append from entity @s item.tag.psmoba.items[$(item)].Count
@@ -123,6 +152,11 @@ function ~/page:
 function ~/tick:
     if score @s psmoba.crafter matches 1 return run function ~/../page/inventory/click
     if score @s psmoba.crafter matches 2 return run function ~/../page/crafting/click
+
+
+function ~/tick1s:
+    unless block ~ ~-1 ~ barrel function ~/../break
+    function ~/../tick
 
 
 function ~/break:
