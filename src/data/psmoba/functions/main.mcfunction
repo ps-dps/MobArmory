@@ -54,3 +54,5 @@ function ./tick1s:
 
 function ./summon_item:
     $summon item ~ ~ ~ {Item:$(item),Motion:[0d,.3d,0d]}
+function ./summon_loot_table:
+    $loot spawn ~ ~ ~ loot $(loot_table)

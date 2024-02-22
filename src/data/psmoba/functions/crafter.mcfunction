@@ -51,19 +51,39 @@ def check_recipe(slot:int): #! MAKE IT SUPPORT 2ND ROWWW
         data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
         store result score #success psmoba.crafter function ~/../check_recipe_cost
         if score #success psmoba.crafter matches 0 return run function ~/../fail{slot}:
-            say FAILED
             data modify storage psmoba:temp crafter.recipes.recipes[0].failure.Slot set value Byte(slot)
             data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.recipes[0].failure
         data modify storage psmoba:temp crafter.recipes.recipes[0].success.Slot set value Byte(slot)
         data modify block ~ ~-1 ~ Items append from storage psmoba:temp crafter.recipes.recipes[0].success
-        say SUCCESS
 
-        # remove ingredients
         data modify storage psmoba:temp crafter.recipes.items set from entity @s item.tag.psmoba.items
         data modify storage psmoba:temp crafter.recipes.recipes set value [{}]
         data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
-        # after this place the result into the items, summon_item if no space
 
+        execute function ~/../remove_recipe_cost:
+            data modify storage psmoba:temp item.item set from storage psmoba:temp crafter.recipes.recipes[0].cost[-1]
+            data remove storage psmoba:temp crafter.recipes.recipes[0].cost[-1]
+            store result score #count psmoba.crafter data get storage psmoba:temp item.item.psmoba.count
+            data remove storage psmoba:temp item.item.psmoba
+            data modify storage psmoba:temp crafter.recipes.match set value []
+            execute function ~/../remove_matching_copy with storage psmoba:temp item:
+                $data modify storage psmoba:temp crafter.recipes.match append from entity @s item.tag.psmoba.items[$(item)]
+                execute function ~/../remove_matching_count:
+                    store result score #icount psmoba.crafter data get storage psmoba:temp crafter.recipes.match[-1].Count
+                    scoreboard players operation #icount psmoba.crafter -= #count psmoba.crafter
+                    if score #icount psmoba.crafter matches ..0 return run function ~/../remove_item with storage psmoba:temp crafter.recipes.match[-1]:
+                        $data remove entity @s item.tag.psmoba.items[{Slot:$(Slot)b}]
+                        scoreboard players operation #icount psmoba.crafter += #count psmoba.crafter
+                        scoreboard players operation #count psmoba.crafter -= #icount psmoba.crafter
+                        data remove storage psmoba:temp crafter.recipes.match[-1]
+                        if data storage psmoba:temp crafter.recipes.match[0] function ~/../remove_matching_count
+                    execute function ~/../remove_item_count with storage psmoba:temp crafter.recipes.match[-1]:
+                        $execute store result entity @s item.tag.psmoba.items[{Slot:$(Slot)b}].Count byte 1 run scoreboard players get #icount psmoba.crafter
+            if data storage psmoba:temp crafter.recipes.recipes[0].cost[-1] return run function ~/
+
+        data modify storage psmoba:temp crafter.recipes.loot_table.loot_table set from storage psmoba:temp crafter.recipes.recipes[0].result
+        function ./summon_loot_table with storage psmoba:temp crafter.recipes.loot_table
+        function ./crafter/page/crafting/setup
 
 
 function ~/page:

@@ -49,7 +49,7 @@ function ~/crafter:
     function ~/recipes:
         data modify storage psmoba:main crafter.recipes set value [
             {
-                "result": { id: "minecraft:bone_block", Count: 64b, tag: {display:{Name:'"YES 64 Bones"'}}},
+                "result": "psmoba:wither_skeleton/chest",
                 "success": {id:"minecraft:structure_void",Count:1b,tag:{psmoba:{is_inventory:1b},CustomModelData:2557900,display:{Name:'["",{"translate":"psmoba.crafter.craft.success","color":"gray","italic":false,"with":[{"translate":"BONEBLOCK","color":"white","italic":false}]}]'}}},
                 "failure": {id:"minecraft:structure_void",Count:1b,tag:{psmoba:{is_inventory:1b},CustomModelData:2557901,display:{Name:'["",{"translate":"psmoba.crafter.craft.failure","color":"red","italic":false,"with":[{"translate":"BONEBLOCK","color":"white","italic":false}]}]'}}},
                 "cost": [
@@ -57,7 +57,7 @@ function ~/crafter:
                 ],
             },
             {
-                "result": { id: "minecraft:bedrock", Count: 1b, tag: {display:{Name:'"BEDrock"'}}},
+                "result": "psmoba:wither_skeleton/feet",
                 "success": {id:"minecraft:structure_void",Count:1b,tag:{psmoba:{is_inventory:1b},CustomModelData:2557902,display:{Name:'["",{"translate":"psmoba.crafter.craft.success","color":"gray","italic":false,"with":[{"translate":"BEDROCK","color":"white","italic":false}]}]'}}},
                 "failure": {id:"minecraft:structure_void",Count:1b,tag:{psmoba:{is_inventory:1b},CustomModelData:2557903,display:{Name:'["",{"translate":"psmoba.crafter.craft.failure","color":"red","italic":false,"with":[{"translate":"BEDROCK","color":"white","italic":false}]}]'}}},
                 "cost": [
