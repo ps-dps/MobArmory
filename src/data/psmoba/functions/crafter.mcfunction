@@ -42,13 +42,20 @@ def replace_item(slot:int, page:str = None):
     if page:
         raw f'data modify block ~ ~-1 ~ Items append from storage psmoba:main crafter.pages.{page}[{{Slot:{slot}b}}]'
 
-def check_recipe(slot:int): #! MAKE IT SUPPORT 2ND ROWWW
+def check_recipe(slot:int):
+    if slot in range(1, 9):
+        recipe = -slot
+    elif slot in range(10, 18):
+        recipe = -slot+1
+    else:
+        recipe = -slot+2
+
     unless data storage psmoba:temp {crafter:{items:[{Slot: Byte(slot) ,tag:{psmoba:{is_inventory:1b}}}]}} return run function ~/../slot{slot}:
         replace_item(slot)
         item replace block ~ ~-1 ~ f'container.{slot}' with minecraft:structure_void{CustomModelData:2557800,psmoba:{is_inventory:1b},display:{Name:'""'}}
-        unless data storage psmoba:main crafter.recipes[(-slot)] return 0 #!
+        unless data storage psmoba:main crafter.recipes[(recipe)] return 0
         data modify storage psmoba:temp crafter.recipes.recipes set value [{}]
-        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
+        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(recipe)]
         store result score #success psmoba.crafter function ~/../check_recipe_cost
         if score #success psmoba.crafter matches 0 return run function ~/../fail{slot}:
             data modify storage psmoba:temp crafter.recipes.recipes[0].failure.Slot set value Byte(slot)
@@ -58,7 +65,7 @@ def check_recipe(slot:int): #! MAKE IT SUPPORT 2ND ROWWW
 
         data modify storage psmoba:temp crafter.recipes.items set from entity @s item.tag.psmoba.items
         data modify storage psmoba:temp crafter.recipes.recipes set value [{}]
-        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(-slot)]
+        data modify storage psmoba:temp crafter.recipes.recipes[0] set from storage psmoba:main crafter.recipes[(recipe)]
 
         execute function ~/../remove_recipe_cost:
             data modify storage psmoba:temp item.item set from storage psmoba:temp crafter.recipes.recipes[0].cost[-1]
