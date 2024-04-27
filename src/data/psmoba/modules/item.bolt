@@ -1,4 +1,5 @@
 from random import randint
+import json
 
 def item(
         mob: str,
@@ -127,6 +128,27 @@ def item(
                 recipe_pattern_row += " "
         recipe_pattern.append(recipe_pattern_row)
 
+    optain_lore = [{"text":"","underline":false}]
+    for l in lore:
+        optain_lore.append(json.loads(l))
+        optain_lore.append("\n")
+    optain_lore = optain_lore[:-1]
+
+    if slot == 'head':
+        optain_parent = "psmoba:root"
+    elif slot == 'chest':
+        optain_parent = f'psmoba:{mob}/head/optain'
+    elif slot == 'legs':
+        optain_parent = f'psmoba:{mob}/chest/optain'
+    elif slot == 'feet':
+        optain_parent = f'psmoba:{mob}/legs/optain'
+
+    optain_title = {
+        "translate": "psmoba.advancements.generic.title",
+        "with": [ json.loads(components["item_name"]) ],
+    }
+
+
     loot_table f'psmoba:{mob}/{slot}' {
         "pools": [{
             "rolls": 1,
@@ -156,3 +178,24 @@ def item(
         },
         "rewards": { "recipes": [ f'psmoba:{mob}/{slot}' ]}
     }
+    advancement f'psmoba:{mob}/{slot}/optain' {
+        "display": {
+            "icon": { "id": item, "components": { "minecraft:custom_model_data": cmd }},
+            "title": optain_title,
+            "description": optain_lore,
+            "hidden": false
+        },
+        "parent": optain_parent,
+        "criteria": {
+            "requirement": { "trigger": "minecraft:inventory_changed", "conditions": {
+                "items": [{
+                    "items": item,
+                    "predicates": {
+                        "minecraft:custom_data": { "psmoba": { "nid": nid }}
+                    }
+                }]
+            }}
+        }
+    }
+
+

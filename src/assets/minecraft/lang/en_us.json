@@ -44,11 +44,11 @@
     "psmoba.stat.armor.icon": "a",
     "psmoba.stat.armor_toughness.icon": "t",
 
-    "psmoba.crafter.title": "Mob Armory",
-    "psmoba.crafter.inventory": "Inventory",
-    "psmoba.crafter.crafting": "Crafting",
-    "psmoba.crafter.craft.success": "Click to craft %s",
-    "psmoba.crafter.craft.failure": "Unable to craft %s",
+
+    "psmoba.advancements.root.title": "Mob Armory",
+    "psmoba.advancements.root.description": "Collect the armor themed around all the mob types",
+
+    "psmoba.advancements.generic.title": "Optain %s",
 
     "":""
 }
