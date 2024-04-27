@@ -22,8 +22,10 @@ predicate ~/feet { "condition": "minecraft:entity_properties", "entity": "this",
 
 function ~/head:
     if score @s psmoba.head matches 2 effect clear @s night_vision
+
     unless predicate ~/ return run scoreboard players reset @s psmoba.head
     store result score @s psmoba.head data get entity @s Inventory[{Slot:103b}].components.minecraft:custom_data.psmoba.nid
+
     if score @s psmoba.head matches 2 effect give @s night_vision infinite 0 true
 
 
@@ -40,7 +42,9 @@ function ~/legs:
 function ~/feet:
     if score @s psmoba.feet matches 1 effect clear @s fire_resistance
     if score @s psmoba.feet matches 2 effect clear @s slow_falling
+
     unless predicate ~/ return run scoreboard players reset @s psmoba.feet
     store result score @s psmoba.feet data get entity @s Inventory[{Slot:100b}].components.minecraft:custom_data.psmoba.nid
+
     if score @s psmoba.feet matches 1 effect give @s fire_resistance infinite 0 true
     if score @s psmoba.feet matches 2 effect give @s slow_falling infinite 0 true

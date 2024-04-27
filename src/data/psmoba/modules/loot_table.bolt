@@ -1,6 +1,18 @@
 from random import randint
 
-def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: int, lore_count: int, durability: int, rarity: str = "rare", special: str = None):
+def item(
+        mob: str,
+        slot: str,
+        nid: int,
+        cmd: int,
+        stats: dict[str, int],
+        color: int,
+        lore_count: int,
+        durability: int,
+        recipe: list[list[str]],
+        rarity: str = "rare",
+        special: str = None
+    ):
     if slot == 'head':
         item = 'minecraft:leather_helmet'
     elif slot == 'chest':
@@ -39,64 +51,83 @@ def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: 
     modifiers = []
     for stat, value in stats.items():
         modifiers.append({
-            "type": "minecraft:generic." + stat,
+            "type": "minecraft:generic."+stat,
             "amount": value,
-            "name": "psmoba." + slot + "." + stat,
+            "name": "psmoba."+slot+"."+stat,
             "slot": slot,
             "uuid": [ 2557, randint(-60000, 60000), randint(-60000, 60000), randint(-60000, 60000) ],
             "operation": "add_value",
         })
+    if slot == 'head':
+        tungsten_uuid = [12,42069,0,12]
+    elif slot == 'chest':
+        tungsten_uuid = [12,42069,0,13]
+    elif slot == 'legs':
+        tungsten_uuid = [12,42069,0,14]
+    elif slot == 'feet':
+        tungsten_uuid = [12,42069,0,15]
+    modifiers.append({
+        "type": "minecraft:generic.luck",
+        "amount": -9.094947017729282e-13,
+        "name": "tungsten."+slot,
+        "slot": slot,
+        "uuid": tungsten_uuid,
+        "operation": "add_value",
+    })
     components["attribute_modifiers"] = { "modifiers": modifiers, "show_in_tooltip": false }
 
     components["custom_model_data"] = cmd
 
-    # if special != 'elytra':
-    #     tag += ",Unbreakable:1b"
-
     lore = []
-    lore.append({ "translate": f'psmoba.{mob}.{slot}.lore0', "color": "#ffcc00", "underlined": true, "italic": false })
+    lore.append('{ "translate": "psmoba.'+mob+'.'+slot+'.lore0", "color": "#ffcc00", "underlined": true, "italic": false }')
     for i in range(1, lore_count + 1):
-        lore.append({ "translate": f'psmoba.{mob}.{slot}.lore{i}', "color": "#a1a1a1", "italic": false })
+        lore.append('{ "translate": "psmoba.'+mob+'.'+slot+'.lore'+str(i)+'", "color": "#a1a1a1", "italic": false }')
 
-    stat_lore = []
+    stat_lore = '['
     for stat, value in stats.items():
         trnslt = "psmoba.stat.pos"
         if value < 0:
             trnslt = "psmoba.stat.neg"
 
-        stat_lore.append(
-            {"translate": trnslt, "color": "blue", "italic": false, "with": [
-                { "text": str(value), "color": "blue", "italic": false },
-                { "translate": f'psmoba.stat.{stat}.icon', "color": "white", "italic": false, "font": "psmoba:icons" }]})
-        stat_lore.append(" ")
-    stat_lore.pop()
+        stat_lore += '{ "translate": "'+trnslt+'", "color": "blue", "italic": false, "with": ['+\
+            '{ "text": "'+str(value)+'", "color": "blue", "italic": false },'+\
+            '{ "translate": "psmoba.stat.'+stat+'.icon", "color": "white", "italic": false, "font": "psmoba:icons" }]}," ",'
+
+    stat_lore = stat_lore[:-5]+']'
 
     lore.append(stat_lore)
+
+    components["item_name"] = '{"translate": "psmoba.'+mob+'.'+slot+'.name", "color": "#'+hex(color)[2:].rjust(6,'0')+'", "italic": false}'
+    components["lore"] = lore
 
     functions.append({
         "function": "minecraft:set_components",
         "components": components,
     })
-    functions.append({
-        "function": "minecraft:reference",
-        "name": f'tungsten:apply/{slot}',
-    })
-    functions.append({
-        "function": "minecraft:set_lore",
-        "mode": "replace_all",
-        "lore": lore,
-    })
-    functions.append({
-        "function": "minecraft:set_name",
-        "target": "item_name",
-        "name": {
-            "translate": f'psmoba.{mob}.{slot}.name',
-            "color": '#' + hex(color)[2:].rjust(6,'0'),
-            "italic": false,
-        },
-    })
 
-    return {
+    recipe_keys = {}
+    items_with_keys = []
+    for i, row in enumerate(recipe):
+        for j, ritem in enumerate(row):
+            char = chr(ord('A') + i*3 + j)
+            if ritem and ritem not in items_with_keys:
+                recipe_keys[char] = {"item": ritem}
+                items_with_keys.append(ritem)
+
+    recipe_pattern = []
+    for row in recipe:
+        recipe_pattern_row = ""
+        for ritem in row:
+            if ritem:
+                for k, v in recipe_keys.items():
+                    if v["item"] == ritem:
+                        recipe_pattern_row += k
+                        break
+            else:
+                recipe_pattern_row += " "
+        recipe_pattern.append(recipe_pattern_row)
+
+    loot_table f'psmoba:{mob}/{slot}' {
         "pools": [{
             "rolls": 1,
             "entries": [{
@@ -105,4 +136,23 @@ def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: 
                 "functions": functions,
             }]
         }]
+    }
+    recipe f'psmoba:{mob}/{slot}' {
+        "type": "minecraft:crafting_shaped",
+        "category": "equipment",
+        "pattern": recipe_pattern,
+        "key": recipe_keys,
+        "result": {
+            "id": item,
+            "components": components,
+        }
+    }
+    advancement f'psmoba:{mob}/{slot}' { "criteria": {
+        "requirement": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [{ "items": items_with_keys, }]
+            }}
+        },
+        "rewards": { "recipes": [ f'psmoba:{mob}/{slot}' ]}
     }

@@ -1,10 +1,15 @@
 
 from ./../loot_table import item
 
-loot_table ~/ item(
+item(
     'phantom', 'legs', 2, 2557802,
     { 'armor': 5 },
     color=64235, lore_count=2, durability=225,
+    recipe=[
+        ['phantom_membrane', 'iron_ingot', 'phantom_membrane'],
+        ['iron_ingot',       None,         'iron_ingot'      ],
+        ['phantom_membrane', None,         'phantom_membrane'],
+    ]
 )
 
 predicate ~/is_speed {

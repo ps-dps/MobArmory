@@ -1,10 +1,15 @@
 
 from ./../loot_table import item
 
-loot_table ~/ item(
+item(
     'wither_skeleton', 'chest', 1, 2557801,
     { 'armor': 8, 'armor_toughness': 3 },
     color=9534584, lore_count=1, durability=528,
+    recipe=[
+        ['netherite_scrap', None,              'netherite_scrap'],
+        ['gold_block',      'coal_block',      'gold_block'     ],
+        [None,              'netherite_scrap', None             ],
+    ],
 )
 
 function ~/shoot_arrow:
