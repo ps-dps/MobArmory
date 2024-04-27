@@ -4,7 +4,7 @@ from ./../loot_table import item
 loot_table ~/ item(
     'phantom', 'chest', 2, 2557802,
     { 'armor': 5 },
-    color=64235, lore_count=2, special='elytra', durability=240,
+    color=64235, lore_count=2, special='elytra', durability=160,
 )
 
 item_modifier ~/destroy {
@@ -33,9 +33,16 @@ function ~/tick:
 
     if data entity @s {FallFlying:0b} return 0
     item modify entity @s armor.chest ~/../destroy
-    effect give @s levitation 1 60 true
-    unless score @s psmoba.clear.levitation matches 4.. scoreboard players set @s psmoba.clear.levitation 3
+    tp @s @s
+    attribute @s generic.gravity modifier add 2557-8183-490f-88eb-bba2aabe2b60 psmoba.phantom.chest.boost -.5 add_value
+    scoreboard players set @s psmoba.phantom.chest.boost 2
 
 function ~/land:
     tag @s remove psmoba.phantom.chest
     item modify entity @s armor.chest ~/../repair
+
+function ~/boost:
+    scoreboard players remove @s psmoba.phantom.chest.boost 1
+    unless score @s psmoba.phantom.chest.boost matches 0 return 0
+    attribute @s generic.gravity modifier remove 2557-8183-490f-88eb-bba2aabe2b60
+    scoreboard players reset @s psmoba.phantom.chest.boost
