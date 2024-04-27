@@ -1,5 +1,5 @@
 
-from ./../loot_table import item
+from ./../item import item
 
 item(
     'wither_skeleton', 'chest', 1, 2557801,

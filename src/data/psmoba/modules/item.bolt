@@ -147,7 +147,7 @@ def item(
             "components": components,
         }
     }
-    advancement f'psmoba:{mob}/{slot}' { "criteria": {
+    advancement f'psmoba:{mob}/{slot}/unlock_recipe' { "criteria": {
         "requirement": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {

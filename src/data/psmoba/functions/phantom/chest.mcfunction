@@ -1,5 +1,5 @@
 
-from ./../loot_table import item
+from ./../item import item
 
 item(
     'phantom', 'chest', 2, 2557802,
