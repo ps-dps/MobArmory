@@ -15,17 +15,7 @@ function ./load:
     scoreboard objectives add psmoba.legs dummy
     scoreboard objectives add psmoba.feet dummy
 
-    scoreboard objectives add psmoba.crafter dummy
-    scoreboard objectives add psmoba.crafter.progress dummy
-
-    scoreboard objectives add psmoba.mine.barrel minecraft.mined:minecraft.barrel
-
-    function ./register/crafter/inventory
-    function ./register/crafter/crafting
-    function ./register/crafter/recipes
-
     function ./tick
-    function ./tick1s
 
 
 function ./tick:
@@ -39,20 +29,3 @@ function ./tick:
 
     as @a[scores={psmoba.chest=2}] at @s function ./phantom/chest/tick
     as @a[scores={psmoba.legs=2}] at @s function ./phantom/legs/tick
-
-    at @a[scores={psmoba.mine.barrel=1..}] as @e[type=item_display,distance=..8,tag=psmoba.crafter] at @s unless block ~ ~-1 ~ barrel function ./crafter/break
-
-    as @a store result score @s psmoba.crafter clear @s structure_void{psmoba:{is_inventory:1b}}
-    as @a[scores={psmoba.crafter=1..}] at @s as @e[type=item_display,distance=..8,tag=psmoba.crafter] at @s function ./crafter/tick
-
-
-function ./tick1s:
-    schedule function ~/ 1s replace
-
-    as @e[type=item_display,tag=psmoba.crafter] at @s function ./crafter/tick1s
-
-
-function ./summon_item:
-    $summon item ~ ~ ~ {Item:$(item),Motion:[0d,.3d,0d]}
-function ./summon_loot_table:
-    $loot spawn ~ ~ ~ loot $(loot_table)

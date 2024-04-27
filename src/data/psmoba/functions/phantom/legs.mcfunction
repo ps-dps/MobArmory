@@ -4,7 +4,7 @@ from ./../loot_table import item
 loot_table ~/ item(
     'phantom', 'legs', 2, 2557802,
     { 'armor': 5 },
-    color=64235, lore=2
+    color=64235, lore_count=2, durability=225,
 )
 
 predicate ~/is_speed {

@@ -1,6 +1,6 @@
 from random import randint
 
-def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: int, lore: int, special: str = None):
+def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: int, lore_count: int, durability: int, rarity: str = "rare", special: str = None):
     if slot == 'head':
         item = 'minecraft:leather_helmet'
     elif slot == 'chest':
@@ -11,37 +11,52 @@ def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: 
         item = 'minecraft:leather_boots'
     else:
         raise ValueError('Invalid slot')
-    
+
     if special == 'elytra':
         item = 'minecraft:elytra'
 
-    tag = "{psmoba:{id:\"" + mob + "." + slot + "\",nid:" + str(nid) + "}"
+    functions = []
+
+    components = {}
+
+    components["custom_data"] = {
+        "psmoba": {
+            "id": f'{mob}.{slot}',
+            "nid": nid,
+        }
+    }
+
+    components["rarity"] = rarity
+
+    components["max_damage"] = durability
+
     if special != 'elytra':
-        tag += ",display:{color:" + str(color) + "}"
+        components["dyed_color"] = {
+            "rgb": color,
+            "show_in_tooltip": false,
+        }
 
-    tag += ",AttributeModifiers:["
-    if slot == 'head':
-        tag += "{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.head\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,12],Slot:\"head\"}"
-    elif slot == 'chest':
-        tag += "{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.chest\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,13],Slot:\"chest\"}"
-    elif slot == 'legs':
-        tag += "{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.legs\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,14],Slot:\"legs\"}"
-    elif slot == 'feet':
-        tag += "{AttributeName:\"minecraft:generic.luck\",Name:\"tungsten.feet\",Amount:-0.000000000001,Operation:0,UUID:[I;12,42069,-0,15],Slot:\"feet\"}"
-
+    modifiers = []
     for stat, value in stats.items():
-        tag += ",{AttributeName:\"minecraft:generic." + stat + "\",Name:\"psmoba." + slot + "." + stat + "\",Amount:" + str(value) + ",Operation:0,UUID:[I;" + f'2557,{randint(-60000, 60000)},{randint(-60000, 60000)},{randint(-60000, 60000)}' + "],Slot:\"" + slot + "\"}"
+        modifiers.append({
+            "type": "minecraft:generic." + stat,
+            "amount": value,
+            "name": "psmoba." + slot + "." + stat,
+            "slot": slot,
+            "uuid": [ 2557, randint(-60000, 60000), randint(-60000, 60000), randint(-60000, 60000) ],
+            "operation": "add_value",
+        })
+    components["attribute_modifiers"] = { "modifiers": modifiers, "show_in_tooltip": false }
 
-    tag += "]"
+    components["custom_model_data"] = cmd
 
-    if special != 'elytra':
-        tag += ",Unbreakable:1b"
-    tag += ",HideFlags:66,CustomModelData:" + str(cmd) + "}"
+    # if special != 'elytra':
+    #     tag += ",Unbreakable:1b"
 
-    lore_arr = []
-    lore_arr.append({"translate": f'psmoba.{mob}.{slot}.lore0', "color": "#ffcc00", "underlined": true, "italic": false})
-    for i in range(1, lore + 1):
-        lore_arr.append({"translate": f'psmoba.{mob}.{slot}.lore{i}', "color": "#a1a1a1", "italic": false})
+    lore = []
+    lore.append({ "translate": f'psmoba.{mob}.{slot}.lore0', "color": "#ffcc00", "underlined": true, "italic": false })
+    for i in range(1, lore_count + 1):
+        lore.append({ "translate": f'psmoba.{mob}.{slot}.lore{i}', "color": "#a1a1a1", "italic": false })
 
     stat_lore = []
     for stat, value in stats.items():
@@ -56,32 +71,38 @@ def item(mob: str, slot: str, nid: int, cmd: int, stats: dict[str, int], color: 
         stat_lore.append(" ")
     stat_lore.pop()
 
-    lore_arr.append(stat_lore)
+    lore.append(stat_lore)
+
+    functions.append({
+        "function": "minecraft:set_components",
+        "components": components,
+    })
+    functions.append({
+        "function": "minecraft:reference",
+        "name": f'tungsten:apply/{slot}',
+    })
+    functions.append({
+        "function": "minecraft:set_lore",
+        "mode": "replace_all",
+        "lore": lore,
+    })
+    functions.append({
+        "function": "minecraft:set_name",
+        "target": "item_name",
+        "name": {
+            "translate": f'psmoba.{mob}.{slot}.name',
+            "color": '#' + hex(color)[2:].rjust(6,'0'),
+            "italic": false,
+        },
+    })
 
     return {
-        "pools": [
-            {
-                "rolls": 1,
-                "entries": [
-                    {
-                        "type": "minecraft:item",
-                        "name": item,
-                        "functions": [
-                            {
-                                "function": "minecraft:set_nbt",
-                                "tag": tag
-                            },
-                            {
-                                "function": "minecraft:set_name",
-                                "name": { "translate": f'psmoba.{mob}.{slot}.name', "color": '#' + hex(color)[2:].rjust(6,'0'), "italic": false }
-                            },
-                            {
-                                "function": "minecraft:set_lore",
-                                "lore": lore_arr
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "pools": [{
+            "rolls": 1,
+            "entries": [{
+                "type": "minecraft:item",
+                "name": item,
+                "functions": functions,
+            }]
+        }]
     }

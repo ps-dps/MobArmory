@@ -4,7 +4,7 @@ from ./../loot_table import item
 loot_table ~/ item(
     'wither_skeleton', 'chest', 1, 2557801,
     { 'armor': 8, 'armor_toughness': 3 },
-    color=9534584, lore=1
+    color=9534584, lore_count=1, durability=528,
 )
 
 function ~/shoot_arrow:
