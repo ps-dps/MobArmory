@@ -1,7 +1,8 @@
 {
     "display": {
         "icon": {
-            "id": "minecraft:crafting_table"
+            "id": "minecraft:elytra",
+            "components": { "minecraft:custom_model_data": 2557899 }
         },
         "title": {
             "translate": "psmoba.advancements.root.title",

@@ -15,6 +15,12 @@
             "predicate": {
                 "custom_model_data": 2557802
             }
+        },
+        {
+            "model": "psmoba:pack",
+            "predicate": {
+                "custom_model_data": 2557899
+            }
         }
     ]
 }
