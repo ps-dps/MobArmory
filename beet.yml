@@ -12,6 +12,7 @@ data_pack:
     - src
   name: MobArmory
   description: Adds mob themed equipment
+  pack_format: 41
 
 resource_pack:
   load:
@@ -19,6 +20,7 @@ resource_pack:
     - src
   name: MobArmory-RP
   description: Adds mob themed equipment
+  pack_format: 32
 
 pipeline:
   - mecha
