@@ -11,7 +11,7 @@ data_pack:
     - libs/dp/*
     - src
   name: MobArmory
-  description: Adds mob themed equipment
+  description: Collect powerful armor themed around mobs and gain their unique abilities
   pack_format: 41
 
 resource_pack:
@@ -19,7 +19,7 @@ resource_pack:
     - libs/rp/*
     - src
   name: MobArmory-RP
-  description: Adds mob themed equipment
+  description: Collect powerful armor themed around mobs and gain their unique abilities
   pack_format: 32
 
 pipeline:
