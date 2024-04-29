@@ -11,7 +11,7 @@ This pack **adds new armor sets**, each **themed around a specific mob**.
 
 Each armor piece gives a **unique and powerful passive buff**, like allowing you to **double jump** or **igniting any arrows** you fire.
 
-## Optaining the Armor Sets
+## Obtaining the Armor Sets
 
 ![Armor Items Icons](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/armor_icons.png)
 
