@@ -86,7 +86,9 @@ def fancify(ctx: Context):
 
     leather_armor_1.putpixel((0, 1), (255, 255, 255))
     leather_armor_2.putpixel((0, 1), (255, 255, 255))
-    #! Combine base and overlay for vanilla texture thingy !!
+    overlay_2 = overlay_2.convert('RGBA')
+    leather_armor_1 = Image.alpha_composite(leather_armor_1, overlay_1)
+    leather_armor_2 = Image.alpha_composite(leather_armor_2, overlay_2)
     fancy_armor_1: list[Image.Image] = [leather_armor_1]
     fancy_armor_2: list[Image.Image] = [leather_armor_2]
 
