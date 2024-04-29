@@ -3,7 +3,7 @@
 
 ![Phatom Armor and Withered Bone Armor](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/armors.png)
 
-[![Download on Modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth_download.png)](https://modrinth.com/project/mob-armory)
+[![Download on Modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth_download.png)](https://modrinth.com/project/mob-armory/versions)
 [![Sourcecode on GitHub](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/github_source_code.png)](https://github.com/ps-dps/MobArmory)
 
 ## What the Pack does
