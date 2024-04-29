@@ -1,7 +1,7 @@
-# ![](images/pack_32.png) Mob Armory
+# ![](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/pack_32.png) Mob Armory
 <font color="#00faeb">**Collect powerful armor themed around mobs and gain their unique abilities**</font>
 
-![Phatom Armor and Withered Bone Armor](images/armors.png)
+![Phatom Armor and Withered Bone Armor](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/armors.png)
 
 [![Download on Modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth_download.png)](https://modrinth.com/project/mob-armory)
 [![Sourcecode on GitHub](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/github_source_code.png)](https://github.com/ps-dps/MobArmory)
@@ -13,12 +13,12 @@ Each armor piece gives a **unique and powerful passive buff**, like allowing you
 
 ## Optaining the Armor Sets
 
-![Armor Items Icons](images/armor_icons.png)
+![Armor Items Icons](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/armor_icons.png)
 
 The armor pieces can be crafted in the **regular crafting table**.
 
-![Phantom Helmet Recipe](images/craft_phatom_helmet.png)
-![Withered Bone Chestplate Recipe](images/craft_wither_skeleton_chestplate.png)
+![Phantom Helmet Recipe](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/craft_phatom_helmet.png)
+![Withered Bone Chestplate Recipe](https://raw.githubusercontent.com/ps-dps/MobArmory/main/images/craft_wither_skeleton_chestplate.png)
 
 You will **unlock the recipe** for an armor piece once you **pick up an item that is used to craft it**.
 From then on you can see it in the **recipe book** in crafting tables.
