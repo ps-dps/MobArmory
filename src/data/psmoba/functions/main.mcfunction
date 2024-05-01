@@ -28,3 +28,4 @@ function ./tick:
     as @a[scores={psmoba.phantom.chest.boost=1..}] function ./phantom/chest/boost
     as @a[scores={psmoba.chest=2}] at @s function ./phantom/chest/tick
     as @a[scores={psmoba.legs=2}] at @s function ./phantom/legs/tick
+    as @a[scores={psmoba.legs=3}] at @s function ./blaze/legs/tick
