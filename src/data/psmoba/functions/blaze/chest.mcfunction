@@ -18,7 +18,7 @@ function ~/using_bow:
     if score @s psmoba.chest.var.0 matches 1.. return 0
 
     data modify storage psmoba:temp owner set from entity @s UUID
-    anchored eyes positioned ^ ^ ^ positioned ~ ~-.2 ~ summon small_fireball function ~/../summon_fireball
+    anchored eyes positioned ^ ^ ^ positioned ~ ~-.2 ~ summon small_fireball function ~/../summon_fireball:
         data modify entity @s Owner set from storage psmoba:temp owner
         positioned 0. 0. 0. tp ^ ^ ^1 #! check if rotation is still correct here
         data modify entity @s Motion set from entity @s Pos
