@@ -66,6 +66,12 @@
             "predicate": {
                 "custom_model_data": 2557801
             }
+        },
+        {
+            "model": "psmoba:armor/blaze_chestplate",
+            "predicate": {
+                "custom_model_data": 2557803
+            }
         }
     ],
     "textures": {

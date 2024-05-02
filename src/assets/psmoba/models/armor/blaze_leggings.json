@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "psmoba:item/empty",
+        "layer1": "psmoba:item/armor/blaze_leggings"
+    }
+}

@@ -72,6 +72,12 @@
             "predicate": {
                 "custom_model_data": 2557802
             }
+        },
+        {
+            "model": "psmoba:armor/blaze_boots",
+            "predicate": {
+                "custom_model_data": 2557803
+            }
         }
     ],
     "textures": {
