@@ -3,12 +3,12 @@ from ./../item import item
 
 item(
     'blaze', 'legs', 3, 2557803,
-    { 'armor': 6, 'armor_toughness': 3 },
-    color=16757261, lore_count=2, durability=495,
+    { 'armor': 4 },
+    color=16757261, lore_count=1, durability=495,
     recipe=[
-        ['blaze_rod',      'blaze_rod', 'blaze_rod'     ],
-        ['blaze_rod', None,              'blaze_rod'],
-        ['blaze_rod',      None,              'blaze_rod'     ],
+        ['blaze_rod', 'weeping_vines', 'blaze_rod'],
+        ['blaze_rod', 'weeping_vines', 'blaze_rod'],
+        ['blaze_rod',  None,           'blaze_rod'],
     ]
 )
 
@@ -48,7 +48,9 @@ function ~/tick:
         tag @s remove psmoba.blaze.legs.down
         attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-8f1275018848
 
-    if entity @s[tag=psmoba.blaze.legs.floating] particle large_smoke ~ ~ ~ 0.2 0.2 0.2 0.035 1
+    if entity @s[tag=psmoba.blaze.legs.floating] function ~/../is_floating:
+        particle large_smoke ~ ~ ~ 0.2 0.2 0.2 0.035 1
+        if predicate ~/../float_ambient_chance playsound minecraft:entity.blaze.burn player @a ~ ~ ~ 1 1
 
 
 function ~/unequip:
@@ -83,3 +85,7 @@ predicate ~/sneak {
     }
 }
 
+predicate ~/float_ambient_chance {
+    "condition": "minecraft:random_chance",
+    "chance": 0.05
+}

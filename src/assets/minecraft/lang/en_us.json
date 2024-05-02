@@ -38,6 +38,25 @@
     "psmoba.wither_skeleton.feet.lore1": "You are immune to fire damage",
 
 
+    "psmoba.blaze.head.name":  "Blazing Mask",
+    "psmoba.blaze.head.lore0": "Blaze Hot Bolt:",
+    "psmoba.blaze.head.lore1": "Instead of arrows, you shoot",
+    "psmoba.blaze.head.lore2": "charged fire beams",
+    
+    "psmoba.blaze.chest.name":  "Blazing Chestplate",
+    "psmoba.blaze.chest.lore0": "Inferno:",
+    "psmoba.blaze.chest.lore1": "Raise your shield to send out a",
+    "psmoba.blaze.chest.lore2": "volley of fireballs",
+    
+    "psmoba.blaze.legs.name":  "Blazing Cuisses",
+    "psmoba.blaze.legs.lore0": "Updraft:",
+    "psmoba.blaze.legs.lore1": "Sneak in the air to start hovering",
+    
+    "psmoba.blaze.feet.name":  "Blazing Boots",
+    "psmoba.blaze.feet.lore0": "Heat Sense:",
+    "psmoba.blaze.feet.lore1": "Highlight any enemy you damage",
+
+
     "psmoba.stat.pos": "[+%s%s]",
     "psmoba.stat.neg": "[-%s%s]",
 

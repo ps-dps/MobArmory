@@ -10,3 +10,4 @@ function ~/player_hurt_entity:
 
     if score .legs psmoba matches 1 function ./wither_skeleton/legs/player_hurt_entity
     if score .head psmoba matches 1 function ./wither_skeleton/head/player_hurt_entity
+    if score .feet psmoba matches 3 function ./blaze/feet/player_hurt_entity

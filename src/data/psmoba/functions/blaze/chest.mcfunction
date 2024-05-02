@@ -3,21 +3,24 @@ from ./../item import item
 
 item(
     'blaze', 'chest', 3, 2557803,
-    { 'armor': 8, 'armor_toughness': 3 },
-    color=16757261, lore_count=1, durability=528,
+    { 'armor': 4 },
+    color=16757261, lore_count=2, durability=528,
     recipe=[
-        ['blaze_rod', None,              'blaze_rod'],
-        ['blaze_rod',      'blaze_rod',      'blaze_rod'     ],
-        [None,              'blaze_rod', None             ],
+        ['blaze_rod',      None,           'blaze_rod'    ],
+        ['blaze_rod',     'blaze_rod',     'blaze_rod'    ],
+        ['weeping_vines', 'weeping_vines', 'weeping_vines'],
     ],
 )
 
-function ~/using_bow:
-    unless score @s psmoba.chest.var.0 matches 1.. scoreboard players set @s psmoba.chest.var.0 10
-    scoreboard players remove @s psmoba.chest.var.0 1
+function ~/using_shield:
     if score @s psmoba.chest.var.0 matches 1.. return 0
 
+    scoreboard players set @s psmoba.chest.var.0 30
+    playsound minecraft:entity.blaze.shoot player @a ~ ~ ~ 1 0.8
+
     data modify storage psmoba:temp owner set from entity @s UUID
+    anchored eyes positioned ^ ^ ^ positioned ~ ~-.4 ~ facing ^.2 ^ ^1 summon small_fireball function ~/../summon_fireball
+    anchored eyes positioned ^ ^ ^ positioned ~ ~-.4 ~ facing ^-.2 ^ ^1 summon small_fireball function ~/../summon_fireball
     anchored eyes positioned ^ ^ ^ positioned ~ ~-.4 ~ summon small_fireball function ~/../summon_fireball:
         data modify entity @s Owner set from storage psmoba:temp owner
         positioned 0. 0. 0. tp ^ ^ ^.1
