@@ -30,11 +30,16 @@ function ~/head:
 
 
 function ~/chest:
+    attribute @s[scores={psmoba.chest=2}] generic.gravity modifier remove 2557-8183-490f-88eb-bba2aabe2b60
+
+    scoreboard players reset @s psmoba.chest.var.0
     unless predicate ~/ return run scoreboard players reset @s psmoba.chest
     store result score @s psmoba.chest data get entity @s Inventory[{Slot:102b}].components.minecraft:custom_data.psmoba.nid
 
 
 function ~/legs:
+    if score @s psmoba.legs matches 3 function ./blaze/legs/unequip
+
     unless predicate ~/ return run scoreboard players reset @s psmoba.legs
     store result score @s psmoba.legs data get entity @s Inventory[{Slot:101b}].components.minecraft:custom_data.psmoba.nid
 
