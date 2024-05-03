@@ -4,7 +4,7 @@ from ./../item import item
 item(
     'blaze', 'chest', 3, 2557803,
     { 'armor': 4 },
-    color=16757261, lore_count=2, durability=528,
+    color=16757261, lore_count=2, durability=240,
     recipe=[
         ['blaze_rod',      None,           'blaze_rod'    ],
         ['blaze_rod',     'blaze_rod',     'blaze_rod'    ],
