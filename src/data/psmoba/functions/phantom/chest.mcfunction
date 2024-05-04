@@ -51,3 +51,6 @@ function ~/boost:
     unless score @s psmoba.chest.var.0 matches 0 return 0
     attribute @s generic.gravity modifier remove 2557-8183-490f-88eb-bba2aabe2b60
     scoreboard players reset @s psmoba.chest.var.0
+
+prepend function ./../tungsten/chest:
+    attribute @s[scores={psmoba.chest=2}] generic.gravity modifier remove 2557-8183-490f-88eb-bba2aabe2b60

@@ -10,3 +10,9 @@ item(
         ['glow_ink_sac',     'phantom_membrane', 'glow_ink_sac'    ],
     ]
 )
+
+prepend function ./../tungsten/head:
+    if score @s psmoba.head matches 2 effect clear @s night_vision
+
+append function ./../tungsten/head:
+    if score @s psmoba.head matches 2 effect give @s night_vision infinite 0 true

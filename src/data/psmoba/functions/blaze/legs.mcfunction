@@ -53,15 +53,16 @@ function ~/tick:
         if predicate ~/../float_ambient_chance playsound minecraft:entity.blaze.burn player @a ~ ~ ~ 1 1
 
 
-function ~/unequip:
-    tag @s remove psmoba.blaze.legs.sneaking
-    tag @s remove psmoba.blaze.legs.floating
-    tag @s remove psmoba.blaze.legs.up
-    tag @s remove psmoba.blaze.legs.down
-    attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-df1212018842
-    attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-df1275018845
-    attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-8f1275018848
-    attribute @s generic.fall_damage_multiplier modifier remove 963852b3-465b-4bcf-87fc-df1212018abc
+prepend function ./../tungsten/legs:
+    if score @s psmoba.legs matches 3 function ./legs/unequip:
+        tag @s remove psmoba.blaze.legs.sneaking
+        tag @s remove psmoba.blaze.legs.floating
+        tag @s remove psmoba.blaze.legs.up
+        tag @s remove psmoba.blaze.legs.down
+        attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-df1212018842
+        attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-df1275018845
+        attribute @s generic.gravity modifier remove 963852b3-465b-4bcf-87fc-8f1275018848
+        attribute @s generic.fall_damage_multiplier modifier remove 963852b3-465b-4bcf-87fc-df1212018abc
 
 
 predicate ~/sneak_in_air {

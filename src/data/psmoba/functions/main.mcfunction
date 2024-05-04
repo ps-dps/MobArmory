@@ -13,7 +13,6 @@ function ./load:
     scoreboard objectives add psmoba.using.last dummy
 
     scoreboard objectives add psmoba.chest.var.0 dummy
-    scoreboard objectives add psmoba.feet.var.0 dummy
 
     scoreboard objectives add psmoba.head dummy
     scoreboard objectives add psmoba.chest dummy
