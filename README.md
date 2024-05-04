@@ -33,6 +33,9 @@ If you want to use this pack as a data pack with other data packs, I highly reco
 
 If you **don't** use Optifine or CIT Resewn, this pack is **not compatible** with resource packs that **change the leather armor texture**, you can still use that resource pack, just place it **below** this pack in the **resource pack ordering**.
 
+## Credit
+Textures for the Blazing armor are made by [@TheDukette](https://modrinth.com/user/theDukette)
+
 ---
 
 [![PuckiSilver on GitHub](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/GitHub.png)](https://github.com/PuckiSilver)[![PuckiSilver on modrinth](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/modrinth.png)](https://modrinth.com/user/PuckiSilver)[![PuckiSilver on PlanetMinecraft](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PlanetMinecraft.png)](https://planetminecraft.com/m/PuckiSilver)[![PuckiSilver on PayPal](https://raw.githubusercontent.com/PuckiSilver/static-files/main/link_logos/PayPal.png)](https://paypal.me/puckisilver)
