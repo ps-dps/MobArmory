@@ -8,7 +8,6 @@ advancement ~/bow {
 function ~/bow:
     advancement revoke @s only ~/
     scoreboard players add @s psmoba.using.time 1
-    if score @s psmoba.chest matches 3 function ./blaze/chest/using_bow
     if score @s psmoba.head matches 3 function ./blaze/head/charge_bow
 
 
