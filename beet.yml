@@ -24,8 +24,9 @@ resource_pack:
 
 pipeline:
   - mecha
-  - plugins.fancy_armor.fancify
+  # - plugins.fancy_armor.fancify
   - plugins.remove_empty_functions
+  - plugins.generate_psmoba
   - plugins.credit
 meta:
   credit: [psmoba]

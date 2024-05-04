@@ -1,16 +1,4 @@
 
-from ./../item import item
-
-item(
-    'blaze', 'head', 3, 2557803,
-    { 'armor': 2 },
-    color=16757261, lore_count=2, durability=165,
-    recipe=[
-        ['blaze_rod',  None,       'blaze_rod'],
-        ['blaze_rod', 'blaze_rod', 'blaze_rod'],
-    ]
-)
-
 function ~/shoot:
     anchored eyes positioned ^ ^ ^ as @e[type=arrow,distance=..1,nbt={life:0s}] kill @s
 

@@ -1,17 +1,4 @@
 
-from ./../item import item
-
-item(
-    'phantom', 'chest', 2, 2557802,
-    { 'armor': 5 },
-    color=64235, lore_count=2, special='elytra', durability=160,
-    recipe=[
-        ['phantom_membrane', 'iron_ingot', 'phantom_membrane'],
-        ['phantom_membrane', None,         'phantom_membrane'],
-        ['phantom_membrane', None,         'phantom_membrane'],
-    ]
-)
-
 item_modifier ~/destroy {
     "function": "minecraft:set_damage",
     "damage": 0
