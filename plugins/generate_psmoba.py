@@ -78,7 +78,7 @@ def get_component_data(armor: dict, slot: str) -> dict:
         "translate": f'psmoba.{armor["id"]}.{slot}.lore{i}',
         "color": "#a1a1a1",
         "italic": False
-    } for i in range(1, len(armor["lore"][slot].trim().split('\n')))] + [
+    } for i in range(1, len(armor["lore"][slot].strip().split('\n')))] + [
         [{
             "translate": "psmoba.stat.pos",
             "color": "blue",
@@ -113,7 +113,7 @@ def get_component_data(armor: dict, slot: str) -> dict:
         "minecraft:lore": lore,
         "minecraft:item_name": {
             "translate": f'psmoba.{armor["id"]}.{slot}.name',
-            "color": f'#{hex(armor["color"])[2:].rjust(6,'0')}',
+            "color": f'#{hex(armor["color"])[2:].rjust(6,"0")}',
             "italic": False
         },
     }
@@ -166,7 +166,7 @@ def recipe_advancement(armor: dict, slot: str) -> Advancement:
         "requirement": {
             "trigger": "minecraft:inventory_changed",
             "conditions": {
-                "items": [{ "items": list(set([item for item in armor["recipes"][slot] if item])), }]
+                "items": [{ "items": list(set([item for row in armor["recipes"][slot] for item in row if item])), }]
             }}
         },
         "rewards": { "recipes": [ f'psmoba:{armor["id"]}/{slot}' ]}
