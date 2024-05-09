@@ -1,3 +1,4 @@
+import ./../tungsten as tungsten
 
 prepend function ./../tungsten/feet:
     if score @s psmoba.feet matches 1 effect clear @s fire_resistance

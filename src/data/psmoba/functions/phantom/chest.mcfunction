@@ -1,3 +1,4 @@
+import ./../tungsten as tungsten
 
 item_modifier ~/destroy {
     "function": "minecraft:set_damage",

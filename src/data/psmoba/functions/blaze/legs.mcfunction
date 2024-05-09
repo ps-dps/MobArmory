@@ -1,3 +1,4 @@
+import ./../tungsten as tungsten
 
 function ~/tick:
     if entity @s[tag=psmoba.blaze.legs.sneaking,predicate=!~/../sneak] return run tag @s remove psmoba.blaze.legs.sneaking

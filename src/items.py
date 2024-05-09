@@ -69,10 +69,6 @@ armors = [{
         "legs": "psmoba:item/armor/wither_skeleton_leggings",
         "feet": "psmoba:item/armor/wither_skeleton_boots",
     },
-    "armor_textures": {
-        "layer1": "wither_skeleton_layer_1",
-        "layer2": "wither_skeleton_layer_2",
-    },
 }, {
     "id": "phantom",
     "nid": 2,
@@ -144,10 +140,6 @@ armors = [{
         "legs": "psmoba:item/armor/phantom_leggings",
         "feet": "psmoba:item/armor/phantom_boots",
     },
-    "armor_textures": {
-        "layer1": "phantom_layer_1",
-        "layer2": "phantom_layer_2",
-    },
 }, {
     "id": "blaze",
     "nid": 3,
@@ -216,9 +208,5 @@ armors = [{
         "chest": "psmoba:item/armor/blaze_chestplate",
         "legs": "psmoba:item/armor/blaze_leggings",
         "feet": "psmoba:item/armor/blaze_boots",
-    },
-    "armor_textures": {
-        "layer1": "blaze_layer_1",
-        "layer2": "blaze_layer_2",
     },
 }]

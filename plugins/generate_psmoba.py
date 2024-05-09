@@ -1,8 +1,11 @@
 from random import randint
 from beet import Context, LootTable, Language, Recipe, Advancement, Texture, Model, PngFile, TextFile
+from beet.contrib.vanilla import Vanilla
 from typing import ClassVar, Tuple
+from PIL import Image
 from src.items import armors
 import json
+import math
 
 
 def beet_default(ctx: Context):
@@ -25,7 +28,21 @@ def beet_default(ctx: Context):
             ctx.data.advancements[f'psmoba:{armor["id"]}/{slot}/unlock_recipe'] = recipe_advancement(armor, slot)
             ctx.data.advancements[f'psmoba:{armor["id"]}/{slot}/optain'] = optain_advancement(armor, slot, base_item, component_data)
             ctx.data.loot_tables[f'psmoba:{armor["id"]}/{slot}'] = loot_table(base_item, components)
-    print(armors)
+
+    vanilla_armor_textures = get_leather_armor_textures(ctx)
+
+    properties, cit_armor_textures = create_cit_files(vanilla_armor_textures, armors)
+    for path, file in properties.items():
+        ctx.assets[CitPropertiesFile][f'minecraft:{path}'] = file
+    for path, file in cit_armor_textures.items():
+        ctx.assets[CitArmorTexture][f'minecraft:{path}'] = file
+
+    layer1, layer2 = get_modified_image_list(vanilla_armor_textures, armors)
+    ctx.assets["minecraft:models/armor/leather_layer_1"] = stitch_textures(layer1)
+    ctx.assets["minecraft:models/armor/leather_layer_2"] = stitch_textures(layer2)
+
+    ctx.assets["minecraft:models/armor/leather_layer_1_overlay"] = Texture(Image.new('RGBA', (64, 32)))
+    ctx.assets["minecraft:models/armor/leather_layer_2_overlay"] = Texture(Image.new('RGBA', (64, 32)))
 
 
 class CitPropertiesFile(TextFile):
@@ -207,3 +224,95 @@ def optain_advancement(armor: dict, slot: str, base_item: str, component_data: d
             }}
         }
     })
+
+
+def get_leather_armor_textures(ctx: Context) -> Tuple[Image.Image, ...]:
+    ctx.require('beet.contrib.model_merging')
+    vanilla = ctx.inject(Vanilla)
+    client_jar = vanilla.mount('assets/minecraft/textures/models')
+    return (
+        client_jar.assets.textures['minecraft:models/armor/leather_layer_1'].copy().ensure_deserialized(),
+        client_jar.assets.textures['minecraft:models/armor/leather_layer_2'].copy().ensure_deserialized(),
+        client_jar.assets.textures['minecraft:models/armor/leather_layer_1_overlay'].copy().ensure_deserialized(),
+        client_jar.assets.textures['minecraft:models/armor/leather_layer_2_overlay'].copy().ensure_deserialized(),
+    )
+
+def stitch_textures(images: list[Image.Image]) -> Texture:
+    num_images = len(images)
+    num_cols = math.ceil(math.sqrt(num_images)*2/3)
+    num_rows = math.ceil(num_images / num_cols)
+
+    stitched_image = Image.new('RGBA', (num_cols * 64, num_rows * 32))
+
+    for i, image in enumerate(images):
+        row = i // num_cols
+        col = i % num_cols
+        stitched_image.paste(image, (col * 64, row * 32))
+
+    return Texture(stitched_image)
+
+def create_cit_files(vanilla_armor_textures: tuple[Image.Image, ...], armors: dict):
+    properties = {}
+    cit_armor_textures = {}
+
+    properties["base_leather_armor"] = CitPropertiesFile('\n'.join([
+        "# Armor textures for https://github.com/ps-dps/MobArmory by PuckiSilver",
+        "type=armor",
+        "items=minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_leggings minecraft:leather_boots",
+        "texture.leather_layer_1=base_leather_armor_1",
+        "texture.leather_layer_2=base_leather_armor_2",
+        "texture.leather_layer_1_overlay=base_leather_armor_1_overlay",
+        "texture.leather_layer_2_overlay=base_leather_armor_2_overlay",
+        "weight=-1",
+    ""]))
+
+    cit_armor_textures["base_leather_armor_1"] = CitArmorTexture(vanilla_armor_textures[0].copy())
+    cit_armor_textures["base_leather_armor_2"] = CitArmorTexture(vanilla_armor_textures[1].copy())
+    cit_armor_textures["base_leather_armor_1_overlay"] = CitArmorTexture(vanilla_armor_textures[2].copy())
+    cit_armor_textures["base_leather_armor_2_overlay"] = CitArmorTexture(vanilla_armor_textures[3].copy())
+    cit_armor_textures["empty"] = CitArmorTexture(Image.new('RGBA', (64, 32)))
+
+    for armor in armors:
+        properties[f'{armor["id"]}'] = CitPropertiesFile('\n'.join([
+            "# Armor textures for https://github.com/ps-dps/MobArmory by PuckiSilver",
+            "type=armor",
+            f'nbt.display.color={armor["color"]}',
+            "items=minecraft:leather_helmet minecraft:leather_chestplate minecraft:leather_leggings minecraft:leather_boots",
+            "texture.leather_layer_1=empty",
+            f'texture.leather_layer_1_overlay={armor["id"]}_1',
+            "texture.leather_layer_2=empty",
+            f'texture.leather_layer_2_overlay={armor["id"]}_2',
+            "weight=1",
+        ]))
+
+        cit_armor_textures[f'{armor["id"]}_1'] = CitArmorTexture(
+            Image.open(f'src/assets/psmoba/armor/{armor["id"]}_1.png')
+        )
+        cit_armor_textures[f'{armor["id"]}_2'] = CitArmorTexture(
+            Image.open(f'src/assets/psmoba/armor/{armor["id"]}_2.png')
+        )
+
+    return properties, cit_armor_textures
+
+def get_modified_image_list(vanilla_armor_textures: tuple[Image.Image, ...], armors: dict) -> tuple[list[Image.Image], ...]:
+    base_1, base_2, overlay_1, overlay_2 = vanilla_armor_textures
+    base_1 = base_1.convert('RGBA')
+    base_2 = base_2.convert('RGBA')
+    overlay_1 = overlay_1.convert('RGBA')
+    overlay_2 = overlay_2.convert('RGBA')
+    base_1.putpixel((0, 1), (255, 255, 255))
+    base_2.putpixel((0, 1), (255, 255, 255))
+    base_1 = Image.alpha_composite(base_1, overlay_1)
+    base_2 = Image.alpha_composite(base_2, overlay_2)
+    layer1 = [base_1]
+    layer2 = [base_2]
+
+    for armor in armors:
+        image1 = Image.open(f'src/assets/psmoba/armor/{armor["id"]}_1.png')
+        image2 = Image.open(f'src/assets/psmoba/armor/{armor["id"]}_2.png')
+        image1.putpixel((0, 0), (armor["color"] >> 16 & 255, armor["color"] >> 8 & 255, armor["color"] & 255))
+        image2.putpixel((0, 0), (armor["color"] >> 16 & 255, armor["color"] >> 8 & 255, armor["color"] & 255))
+        layer1.append(image1)
+        layer2.append(image2)
+
+    return layer1, layer2
